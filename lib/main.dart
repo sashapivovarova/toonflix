@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:toonflix/widgets/Button.dart';
 
 void main() {
-  runApp(App());
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color(0xff181818),
+        backgroundColor: const Color(0xff181818),
         body: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 40,
+            horizontal: 20,
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 80,
               ),
               Row(
@@ -26,7 +29,7 @@ class App extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
+                      const Text(
                         'Hey, Selena',
                         style: TextStyle(
                           color: Colors.white,
@@ -42,9 +45,115 @@ class App extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
-              )
+              ),
+              const SizedBox(
+                height: 100,
+              ),
+              Text(
+                'Total Balance',
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.8),
+                  fontSize: 24,
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              const Text(
+                '\$5 194 382',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 44,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Button(
+                    text: 'Transfer',
+                    bgColor: Color(0xFFF2B33A),
+                    textColor: Colors.black,
+                  ),
+                  Button(
+                    text: 'Request',
+                    bgColor: Color(0xFF1F2123),
+                    textColor: Colors.white,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 100,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Wallets',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 35,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    'View All',
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.8),
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                decoration: const BoxDecoration(
+                  color: Color(0xFF1F2123),
+                ),
+                child: Row(
+                  children: [
+                    Column(
+                      children: [
+                        const Text(
+                          'Euro',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              '6 428',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                            ),
+                            Text(
+                              'EUR',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.8),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
