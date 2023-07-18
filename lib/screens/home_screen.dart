@@ -40,7 +40,9 @@ class HomeScreen extends StatelessWidget {
             );
           }
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Colors.green,
+            ),
           );
         },
       ),
