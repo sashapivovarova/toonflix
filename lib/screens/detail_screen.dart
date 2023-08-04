@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:toonflix/models/webtoon_detail_model.dart';
-import 'package:toonflix/models/webtoon_episode_model.dart';
-import 'package:toonflix/widgets/episode_widget.dart';
+import 'package:toonflix/models/movie_detail_model.dart';
 
 import '../services/api_service.dart';
 
 class DetailScreen extends StatefulWidget {
-  final String title, thumb, id;
+  final String title, image, id;
 
   const DetailScreen({
     super.key,
     required this.title,
-    required this.thumb,
+    required this.image,
     required this.id,
   });
 
@@ -21,8 +19,7 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  late Future<WebtoonDetailModel> webtoon;
-  late Future<List<WebtoonEpisodeModel>> episodes;
+  late Future<MovieDetailModel> movie;
   late SharedPreferences prefs;
   bool isLiked = false;
 
@@ -43,8 +40,8 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     super.initState();
-    webtoon = ApiService.getToonById(widget.id);
-    episodes = ApiService.getLatestEpisodesById(widget.id);
+    movie = ApiService.getMovieById(widget.id);
+
     initPrefs();
   }
 
@@ -113,7 +110,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       width: 250,
                       clipBehavior: Clip.hardEdge,
                       child: Image.network(
-                        widget.thumb,
+                        widget.image,
                       ),
                     ),
                   ),
@@ -123,14 +120,14 @@ class _DetailScreenState extends State<DetailScreen> {
                 height: 30,
               ),
               FutureBuilder(
-                future: webtoon,
+                future: movie,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          snapshot.data!.about,
+                          snapshot.data!.overview,
                           style: const TextStyle(
                             fontSize: 15,
                           ),
@@ -139,7 +136,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           height: 15,
                         ),
                         Text(
-                          '${snapshot.data!.genre} / ${snapshot.data!.age}',
+                          '${snapshot.data!.genres} / ${snapshot.data!.vote}',
                           style: const TextStyle(
                             fontSize: 15,
                           ),
@@ -157,25 +154,6 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
               const SizedBox(
                 height: 25,
-              ),
-              FutureBuilder(
-                future: episodes,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Column(
-                      children: [
-                        for (var episode in snapshot.data!.length > 10
-                            ? snapshot.data!.sublist(0, 10)
-                            : snapshot.data!)
-                          Episode(
-                            episode: episode,
-                            webtoonId: widget.id,
-                          )
-                      ],
-                    );
-                  }
-                  return const Column();
-                },
               ),
             ],
           ),

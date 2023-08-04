@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:toonflix/screens/detail_screen.dart';
 
-class Webtoon extends StatelessWidget {
-  final String title, thumb, id;
+class Coming extends StatelessWidget {
+  final String title, image, id;
 
-  const Webtoon({
+  const Coming({
     super.key,
     required this.title,
-    required this.thumb,
+    required this.image,
     required this.id,
   });
 
@@ -20,7 +20,7 @@ class Webtoon extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) => DetailScreen(
                 title: title,
-                thumb: thumb,
+                image: image,
                 id: id,
               ),
             ));
@@ -45,18 +45,8 @@ class Webtoon extends StatelessWidget {
               width: 250,
               clipBehavior: Clip.hardEdge,
               child: Image.network(
-                thumb,
+                image,
               ),
-            ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w600,
             ),
           ),
         ],
