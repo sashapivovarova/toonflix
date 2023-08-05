@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: FutureBuilder(
-        future: popularMovies,
+        future: nowMovies,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return SingleChildScrollView(
@@ -68,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 400,
+                    height: 450,
                     child: Expanded(
                       child: makeList2(snapshot),
                     ),

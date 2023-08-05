@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toonflix/models/movie_detail_model.dart';
 
 import '../services/api_service.dart';
 
 class DetailScreen extends StatefulWidget {
-  final String title, image, id;
+  final String title, image;
+  final int id;
 
   const DetailScreen({
     super.key,
@@ -20,44 +20,11 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   late Future<MovieDetailModel> movie;
-  late SharedPreferences prefs;
-  bool isLiked = false;
-
-  Future initPrefs() async {
-    prefs = await SharedPreferences.getInstance();
-    final likedToons = prefs.getStringList('likedToons');
-    if (likedToons != null) {
-      if (likedToons.contains(widget.id) == true) {
-        setState(() {
-          isLiked = true;
-        });
-      }
-    } else {
-      await prefs.setStringList('likedToons', []);
-    }
-  }
 
   @override
   void initState() {
     super.initState();
     movie = ApiService.getMovieById(widget.id);
-
-    initPrefs();
-  }
-
-  onHeartTap() async {
-    final likedToons = prefs.getStringList('likedToons');
-    if (likedToons != null) {
-      if (isLiked) {
-        likedToons.remove(widget.id);
-      } else {
-        likedToons.add(widget.id);
-      }
-      await prefs.setStringList('likedToons', likedToons);
-      setState(() {
-        isLiked = !isLiked;
-      });
-    }
   }
 
   @override
@@ -75,14 +42,6 @@ class _DetailScreenState extends State<DetailScreen> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.green,
         elevation: 0,
-        actions: [
-          IconButton(
-            onPressed: onHeartTap,
-            icon: Icon(
-              isLiked ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
-            ),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -110,7 +69,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       width: 250,
                       clipBehavior: Clip.hardEdge,
                       child: Image.network(
-                        widget.image,
+                        'https://image.tmdb.org/t/p/w500${widget.image}',
                       ),
                     ),
                   ),

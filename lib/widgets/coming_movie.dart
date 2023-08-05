@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:toonflix/screens/detail_screen.dart';
 
 class Coming extends StatelessWidget {
-  final String title, image, id;
+  final String title, image;
+  final int id;
 
   const Coming({
     super.key,
@@ -45,7 +46,7 @@ class Coming extends StatelessWidget {
               width: 250,
               clipBehavior: Clip.hardEdge,
               child: Image.network(
-                image,
+                'https://image.tmdb.org/t/p/w500$image',
               ),
             ),
           ),
