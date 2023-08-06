@@ -1,10 +1,15 @@
 class MovieDetailModel {
-  final String image, title, vote, overview, genres;
+  late final String overview, genres;
+  late final int runtime;
+  late final double vote;
 
-  MovieDetailModel.fromJson(Map<String, dynamic> json)
-      : image = json['poster_path'],
-        title = json['original_title'],
-        vote = json['vote_average'],
-        overview = json['overview'],
-        genres = json['genres'];
+  MovieDetailModel.fromJson(Map<String, dynamic> json) {
+    List<dynamic> genreList = [];
+    genreList = json['genres'].map((i) => i['name']).toList().cast<String>();
+
+    vote = json['vote_average'];
+    overview = json['overview'];
+    genres = genreList.join(', ');
+    runtime = json['runtime'];
+  }
 }

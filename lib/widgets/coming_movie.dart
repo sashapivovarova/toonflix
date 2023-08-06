@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toonflix/screens/detail_screen.dart';
 
 class Coming extends StatelessWidget {
-  final String title, image;
+  final String image, title;
   final int id;
 
   const Coming({
@@ -28,26 +28,18 @@ class Coming extends StatelessWidget {
       },
       child: Column(
         children: [
-          Hero(
-            tag: id,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                  15,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 15,
-                    offset: const Offset(10, 10),
-                    color: Colors.black.withOpacity(0.5),
-                  ),
-                ],
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(
+                15,
               ),
-              width: 250,
-              clipBehavior: Clip.hardEdge,
-              child: Image.network(
-                'https://image.tmdb.org/t/p/w500$image',
-              ),
+            ),
+            width: 150,
+            clipBehavior: Clip.hardEdge,
+            child: Image.network(
+              'https://image.tmdb.org/t/p/w500$image',
+              height: 150,
+              fit: BoxFit.cover,
             ),
           ),
         ],
